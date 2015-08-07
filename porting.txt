@@ -1,0 +1,19 @@
+Steps to port this repo to a fresh linux machine (used Ubuntu 14.04 with python 2.7.6)
+
+1) Needed matplotlib
+	sudo apt-get install python-matplotlib
+2) Needed basemap and shapefile modules
+	2.1) sudo apt-get install python-mpltoolkits.basemap-data
+	2.2) sudo apt-get install python-setuptools (needed to use "easy_install)
+	2.3) sudo easy_install pyshp
+	2.4) Install the GEOS library and associated dependencies (e.g., netcdf, hdf5...)
+		a) sudo apt-get install python-dev
+		b) follow steps for postgis and geos: 
+		http://trac.osgeo.org/postgis/wiki/UsersWikiPostGIS20Ubuntu1204src
+		*** Only built GEOS 3.4.x, so you don't need the postgresql-... nor libjson0-...
+	2.5) sudo easy_install basemap (ubuntu 14.04 selects v1.0.7)
+3) At this point, the scripts complain about not finding the TrueType font MSTrebuchet
+	3.1) Installed MS fonts: sudo apt-get install ttf-mscorefonts-installer	
+	3.2) Set a symbolic link /usr/local/share/fonts/truetype/msttcorefonts/ to point at
+			/usr/share/fonts/truetype/msttcorefonts/
+	***Setting a sym link is way easier than changing the path in all of the scripts...

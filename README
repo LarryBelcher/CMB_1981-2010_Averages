@@ -1,0 +1,86 @@
+README for the CMB Climate Division average temperature and average precipitation normals data visualization
+
+
+Abstract:
+Six python scripts (3 for avg temp normals and 3 for avg precip normals) are contained in this project 
+that display the data onto a map (Albers Equal Area Conic for CONUS region).
+
+Data Provider: CMB @ NOAA NCDC
+Dataset: ftp://ftp.ncdc.noaa.gov/pub/data/cirs/climdiv/
+Average temperature: ftp://ftp.ncdc.noaa.gov/pub/data/cirs/climdiv/climdiv-norm-tmpcdv-v1.0.0-20150605
+Average Precipitation: ftp://ftp.ncdc.noaa.gov/pub/data/cirs/climdiv/climdiv-norm-pcpndv-v1.0.0-20150605
+
+
+Python script listing:
+
+normtavgDriver.py (normprecipDriver.py)	- Drives the mapping and colorbar scripts for avg temp (precip) normals
+
+normtavgMap.py (normprecipMap.py)	- Creates a map image of the avg temp (avg precip) normals data
+
+normtavgColorbar.py (normprecipColorbar.py)	- Creates a corresponding colorbar for avg temp (avg precip)
+
+
+Program Usage:
+
+Image production begins by executing normtavgDriver.py (normprecipDriver.py), which
+will create a monthly average temperature normals (monthly average precipitation normals) image of a desired size. 
+The possible image sizes (in pixel width) include 620px, 1000px, 4096px (DIY), 1920px (HD, or HDSD). An example 
+call to the  driver routine:
+
+“path to python”  normtavgDriver.py “YYYYMM” “image size”
+
+e.g., 
+/usr/bin/python  normtavgDriver.py 201401 620
+
+The above call would produce a climate division monthly average temperature normals image for 
+January, 2014 at 620px wide.
+
+
+
+Valid “image size” values are:
+620 (620px wide image)
+1000 (1000px wide image)
+DIY (4096px wide image)
+HD (1920px wide image in high definition)
+HDSD (1920px wide image suitable for either high definition or standard definition
+
+
+
+Software and Dependencies:
+
+The scripts included here were built for Python 2.7. The following
+modules must exist on the system for them to perform correctly:
+
+matplotlib-1.1.1 (or higher)
+shapefile (included with pyshp)
+PIL (python imaging library, 1.1.7 or higher, PIL is the Python Imaging Library)
+mpl_toolkits.basemap
+numpy
+sys
+os
+subprocess
+time
+matplotlib.font_manager (in order to utilize the true type font MS Trebuchet, which is not
+	included as a "base" font in python*)
+	*The usage of PIL and the font manager inside matplotlib in these scripts requires
+	the ability to utilize true type fonts. As such for example on a linux box, one would
+	need to have installed the freetype-dev packages. Specifically, libfreetype6-dev needs
+	to be installed on ubuntu... 
+
+Other files in this project:
+colorbar and logo (.png and .eps) files included here are sized for each of the image 
+sizes and are used by the various python scripts that produce the reprojected images
+
+
+
+Notes on portability:
+
+1) All image making scripts in the project need the path to Trebuchet MS true-type font.
+e.g.,
+
+	/usr/local/share/fonts/truetype/msttcorefonts/Trebuchet_MS.ttf
+
+	*This path depends entirely on the location the sysadmin installs “add-on” fonts.
+
+
+
