@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/Users/belcher/anaconda2/bin/python
 
 import matplotlib as mpl
 mpl.use('Agg')
@@ -7,7 +7,9 @@ from PIL import ImageDraw
 from PIL import ImageFont
 import os, datetime, sys, subprocess
 import numpy as np
-
+import warnings
+import matplotlib.cbook
+warnings.filterwarnings("ignore",category=matplotlib.cbook.mplDeprecation)
 
 
 def int2str(mm):
@@ -48,8 +50,8 @@ p2.wait()
 if not os.path.isdir('./Images'):
 	cmd = 'mkdir ./Images'
 	subprocess.call(cmd,shell=True)
-if not os.path.isdir('./Images/Temperature/'+imgsize):
-	cmd = 'mkdir ./Images/Temperature/'+imgsize.lower()
+if not os.path.isdir('./Images/Temperature/Tavg/'+imgsize):
+	cmd = 'mkdir ./Images/Temperature/Tavg/'+imgsize.lower()
 	subprocess.call(cmd,shell=True)
 
 
@@ -60,10 +62,11 @@ if(imgsize == '620' or imgsize == '1000'):
 	im3 = Image.new('RGBA', size = (im1.size[0], im1.size[1]+im2.size[1]))
 	im3.paste(im2, (0,im1.size[1]))
 	im3.paste(im1, (0,0))
-	img_path = './Images/Temperature/'+imgsize+'/'
+	img_path = './Images/Temperature/Tavg/'+imgsize+'/'
 	imgw = str(im3.size[0])
 	imgh = str(im3.size[1])
-	img_name = 'averagetemp-normals-cmb--'+imgw+'x'+imgh+'--0000-'+mm+'-00.png'
+	if(mm == '00'): monthstr='No-Data'
+	img_name = 'averagetemp-'+monthstr+'-1981-2010-cmb--'+imgw+'x'+imgh+'--0000-'+mm+'-00.png'
 	pngfile = img_path+img_name
 	print "Saving "+pngfile
 	im3.save(pngfile)
@@ -74,17 +77,18 @@ if(imgsize == 'DIY'):
 	imgs = Image.open(im1)
 	imgw = str(imgs.size[0])
 	imgh = str(imgs.size[1])
-	img_path = './Images/Temperature/'+imgsize.lower()+'/'
-	img_name = 'averagetemp-normals-cmb--'+imgw+'x'+imgh+'--0000-'+mm+'-00.png'
+	if(mm == '00'): monthstr='NoData'
+	img_path = './Images/Temperature/Tavg/'+imgsize.lower()+'/'
+	img_name = 'averagetemp-'+monthstr+'-1981-2010-cmb--'+imgw+'x'+imgh+'--0000-'+mm+'-00.png'
 	cmd = 'mv '+im1+' '+img_name
 	subprocess.call(cmd,shell=True)
 	im2 = "./temporary_cbar.eps"
-	cbar_name = 'averagetemp-normals-cmb--0000-'+mm+'-00_colorbar.eps'
+	cbar_name = 'averagetemp-'+monthstr+'-1981-2010-cmb--0000-'+mm+'-00_colorbar.eps'
 	cmd = 'mv '+im2+' '+cbar_name
 	subprocess.call(cmd,shell=True)
-	cmd1 = 'zip averagetemp-normals-cmb--'+imgw+'x'+imgh+'--0000-'+mm+'-00.zip '+img_name+' '+cbar_name+' noaa_logo.eps '
+	cmd1 = 'zip averagetemp-'+monthstr+'-1981-2010-cmb--'+imgw+'x'+imgh+'--0000-'+mm+'-00.zip '+img_name+' '+cbar_name+' noaa_logo.eps '
 	subprocess.call(cmd1,shell=True)
-	cmd2 = 'mv averagetemp-normals-cmb--'+imgw+'x'+imgh+'--0000-'+mm+'-00.zip '+img_path
+	cmd2 = 'mv averagetemp-'+monthstr+'-1981-2010-cmb--'+imgw+'x'+imgh+'--0000-'+mm+'-00.zip '+img_path
 	subprocess.call(cmd2,shell=True)
 	cmd3 = 'rm '+img_name+' '+cbar_name
 	subprocess.call(cmd3,shell=True)
@@ -142,17 +146,17 @@ if(imgsize == 'HD'):
 	text3 = "warm"
 	draw.text((1290,905), text3, (0,0,0), font=fnt4)
 	fnt2 = ImageFont.truetype(fntpath, 16)
-	ttext = "Normal temperature ( F)"
+	ttext = "Average temperature 1981-2010"
 	draw.text((213,815), ttext, (0,0,0), font=fnt2)
 	fnt2a = ImageFont.truetype(fntpath, 8)
-	draw.text((368,815), "o", (0,0,0), font=fnt2a)
+	#draw.text((368,815), "o", (0,0,0), font=fnt2a)
 	
 	
 	draw.polygon([(500,946), (485,936), (500,926)], fill="black", outline="black")
 	draw.polygon([(1420,946), (1435,936), (1420,926)], fill="black", outline="black")
 	
-	img_path = './Images/Temperature/'+imgsize.lower()+'/'
-	img_name = 'averagetemp-normals-cmb--'+imgw+'x'+imgh+'hd--0000-'+mm+'-00.png'
+	img_path = './Images/Temperature/Tavg/'+imgsize.lower()+'/'
+	img_name = 'averagetemp-'+monthstr+'-1981-2010-cmb--'+imgw+'x'+imgh+'hd--0000-'+mm+'-00.png'
 	pngfile = img_path+img_name
 	print "Saving "+pngfile
 	hdim.save(pngfile)
@@ -191,10 +195,10 @@ if(imgsize == 'HDSD'):
 	draw.text((xpos,781), labeldate, (0,0,0), font=fnt1)
 	
 	fnt2 = ImageFont.truetype(fntpath, 14)
-	ttext = "Normal temperature ( F)"
+	ttext = "Average temperature 1981-2010"
 	draw.text((405,785), ttext, (0,0,0), font=fnt2)
 	fnt2a = ImageFont.truetype(fntpath, 8)
-	draw.text((541,784), "o", (0,0,0), font=fnt2a)
+	#draw.text((541,784), "o", (0,0,0), font=fnt2a)
 	
 	#Add the colorbar
 	cbar_orig = Image.open('temporary_cbar.png')
@@ -219,8 +223,8 @@ if(imgsize == 'HDSD'):
 	draw.polygon([(500,911), (485,901), (500,891)], fill="black", outline="black")
 	draw.polygon([(1420,911), (1435,901), (1420,891)], fill="black", outline="black")
 	
-	img_path = './Images/Temperature/'+imgsize.lower()+'/'
-	img_name = 'averagetemp-normals-cmb--'+imgw+'x'+imgh+'hdsd--0000-'+mm+'-00.png'
+	img_path = './Images/Temperature/Tavg/'+imgsize.lower()+'/'
+	img_name = 'averagetemp-'+monthstr+'-1981-2010-cmb--'+imgw+'x'+imgh+'hdsd--0000-'+mm+'-00.png'
 	pngfile = img_path+img_name
 	print "Saving "+pngfile
 	hdim.save(pngfile)

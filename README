@@ -2,22 +2,23 @@ README for the CMB Climate Division average temperature and average precipitatio
 
 
 Abstract:
-Six python scripts (3 for avg temp normals and 3 for avg precip normals) are contained in this project 
-that display the data onto a map (Albers Equal Area Conic for CONUS region).
+Twelve python scripts (3 each for avg, avg max, and avg min temperature normals and 3 for avg precipitation normals)
+are contained in this project that display the data onto a map (Albers Equal Area Conic for CONUS region).
 
 Data Provider: CMB @ NOAA NCDC
 Dataset: ftp://ftp.ncdc.noaa.gov/pub/data/cirs/climdiv/
 Average temperature: ftp://ftp.ncdc.noaa.gov/pub/data/cirs/climdiv/climdiv-norm-tmpcdv-v1.0.0-20150605
+Average max temperature: ftp://ftp.ncdc.noaa.gov/pub/data/cirs/climdiv/climdiv-norm-tmaxdv-v1.0.0-20150805
+Average min temperature: ftp://ftp.ncdc.noaa.gov/pub/data/cirs/climdiv/climdiv-norm-tmindv-v1.0.0-20150805
 Average Precipitation: ftp://ftp.ncdc.noaa.gov/pub/data/cirs/climdiv/climdiv-norm-pcpndv-v1.0.0-20150605
 
 
 Python script listing:
 
-normtavgDriver.py (normprecipDriver.py)	- Drives the mapping and colorbar scripts for avg temp (precip) normals
+normtavgDriver.py - Drives the mapping and colorbar scripts for avg temp normals
+normtavgMap.py - Creates a map image of the avg temp normals data
+normtavgColorbar.py - Creates a corresponding colorbar for avg temp
 
-normtavgMap.py (normprecipMap.py)	- Creates a map image of the avg temp (avg precip) normals data
-
-normtavgColorbar.py (normprecipColorbar.py)	- Creates a corresponding colorbar for avg temp (avg precip)
 
 
 Program Usage:

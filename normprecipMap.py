@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/Users/belcher/anaconda2/bin/python
 
 import matplotlib as mpl
 mpl.use('Agg')
@@ -13,6 +13,9 @@ from mpl_toolkits.axes_grid1 import ImageGrid
 import matplotlib.font_manager as font_manager
 from PIL import Image
 
+import warnings
+import matplotlib.cbook
+warnings.filterwarnings("ignore",category=matplotlib.cbook.mplDeprecation)
 
 def divlookup(dfile, division, month):
 	'''

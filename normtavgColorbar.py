@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/Users/belcher/anaconda2/bin/python
 
 import matplotlib as mpl
 mpl.use('Agg')
@@ -11,6 +11,10 @@ from mpl_toolkits.basemap import Basemap
 from mpl_toolkits.axes_grid1 import ImageGrid
 import matplotlib.font_manager as font_manager
 from PIL import Image
+import warnings
+import matplotlib.cbook
+warnings.filterwarnings("ignore",category=matplotlib.cbook.mplDeprecation)
+
 
 def gmtColormap(fileName):
 
@@ -182,8 +186,8 @@ if(imgsize == '620' or imgsize == '1000' or imgsize == 'DIY'):
 	dval = "Average temperature"
 	plt.text(t1x, t1y, dval, fontproperties=propb, size=fsiz1, color='#333333')
 	plt.text(t2x, t2y, '($^\circ$F)', fontproperties=propr, size=fsiz1, color='#333333')
-	plt.text(t3x, t3y-0.2, '1981-2010', fontproperties=propr, size=fsiz2-1, color='#8D8D8D')
-	plt.text(t3x, t3y-0.4, 'Climate Normals', fontproperties=propr, size=fsiz2-1, color='#8D8D8D')
+	plt.text(t3x, t3y-0.2, '1981-2010 Average', fontproperties=propr, size=fsiz2-1, color='#8D8D8D')
+	#plt.text(t3x, t3y-0.4, 'Climate Normals', fontproperties=propr, size=fsiz2-1, color='#8D8D8D')
 	plt.text(t3x, t3y, labeldate, fontproperties=propr, size=fsiz2, color='#8D8D8D')
 	plt.text(t4x, t4y, 'Climate.gov', fontproperties=propr, size=fsiz2, color='#8D8D8D')
 	plt.text(t5x, t5y, 'Data: NCEI', fontproperties=propr, size=fsiz2, color='#8D8D8D')

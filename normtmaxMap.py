@@ -20,7 +20,7 @@ def divlookup(dfile, division, month):
 	'''
 	Function divlookup: pulls division data from CMB data (i.e., text file)
 	'''
-	cmd = 'grep ^'+division+'020009 '+dfile
+	cmd = 'grep ^'+division+'270009 '+dfile
 	#print cmd
 	dval = os.popen(cmd)
 	dval = float(dval.read().split()[month])
@@ -127,7 +127,7 @@ labeldate = monthstr
 imgsize = sys.argv[2]   #(expects 620, 1000, DIY, HD, or HDSD)
 
 
-dfile = glob.glob('./Data/*tmpcdv*')
+dfile = glob.glob('./Data/*tmaxdv*')
 dfile = dfile[0]
 
 

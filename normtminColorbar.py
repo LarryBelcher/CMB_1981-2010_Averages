@@ -11,7 +11,6 @@ from mpl_toolkits.basemap import Basemap
 from mpl_toolkits.axes_grid1 import ImageGrid
 import matplotlib.font_manager as font_manager
 from PIL import Image
-
 import warnings
 import matplotlib.cbook
 warnings.filterwarnings("ignore",category=matplotlib.cbook.mplDeprecation)
@@ -122,8 +121,8 @@ if(imgsize == '620'):
 	fsiz1 = 12
 	fsiz2 = 11
 	cbx = 0.2258; cbw = 0.5463; cby = 0.33; cbh = 0.259
-	t1x = 0.3694; t1y = 0.68
-	t2x = 0.5684; t2y = 0.7
+	t1x = 0.343; t1y = 0.68
+	t2x = 0.630; t2y = 0.678
 	t3x = 0.006; t3y = 0.77
 	t4x = 0.899; t4y = 0.77
 	t5x = 0.904; t5y = 0.55
@@ -136,8 +135,8 @@ if(imgsize == '1000'):
 	fsiz1 = 12
 	fsiz2 = 11
 	cbx = 0.33; cbw = 0.339; cby = 0.33; cbh = 0.259
-	t1x = 0.418; t1y = 0.68
-	t2x = 0.542; t2y = 0.7
+	t1x = 0.398; t1y = 0.68
+	t2x = 0.578; t2y = 0.678
 	t3x = 0.004; t3y = 0.77
 	t4x = 0.938; t4y = 0.77
 	t5x = 0.941; t5y = 0.55
@@ -150,11 +149,11 @@ if(imgsize == 'DIY'):
 	fsiz1 = 12
 	fsiz2 = 11
 	cbx = 0.185; cbw = 0.63; cby = 0.38; cbh = 0.1
-	t1x = 0.375; t1y = 0.575
-	t2x = 0.57; t2y = 0.575
+	t1x = 0.295; t1y = 0.68
+	t2x = 0.578; t2y = 0.678
 	t3x = 0.05; t3y = 0.82
 	t4x = 0.85; t4y = 0.82
-	t5x = 0.851; t5y = 0.75
+	t5x = 0.852; t5y = 0.73
 	pngfile = "temporary_cbar.eps"
 
 if(imgsize == 'HD' or imgsize == 'HDSD'):
@@ -183,21 +182,20 @@ ax1.set_yticklabels([])
 
 
 if(imgsize == '620' or imgsize == '1000' or imgsize == 'DIY'):
-	dval = "Average Precipitation"
+	dval = "Average minimum temperature"
 	plt.text(t1x, t1y, dval, fontproperties=propb, size=fsiz1, color='#333333')
-	plt.text(t2x, t2y, '(inches)', fontproperties=propr, size=fsiz1, color='#333333')
-
-	plt.text(t3x, t3y, labeldate, fontproperties=propr, size=fsiz2, color='#8D8D8D')
+	plt.text(t2x, t2y, '($^\circ$F)', fontproperties=propr, size=fsiz1, color='#333333')
 	plt.text(t3x, t3y-0.2, '1981-2010 Average', fontproperties=propr, size=fsiz2-1, color='#8D8D8D')
 	#plt.text(t3x, t3y-0.4, 'Climate Normals', fontproperties=propr, size=fsiz2-1, color='#8D8D8D')
+	plt.text(t3x, t3y, labeldate, fontproperties=propr, size=fsiz2, color='#8D8D8D')
 	plt.text(t4x, t4y, 'Climate.gov', fontproperties=propr, size=fsiz2, color='#8D8D8D')
 	plt.text(t5x, t5y, 'Data: NCEI', fontproperties=propr, size=fsiz2, color='#8D8D8D')
 
-cdict1 = gmtColormap('./CPT/precipitation_0-8.cpt')
+cdict1 = gmtColormap('./CPT/temperature_0-100.cpt')
 cmap = LinearSegmentedColormap('cmap_temp', cdict1)
-levs = np.asarray([0, 4, 8])
+levs = np.asarray([0, 50, 100])
 norm = colors.Normalize(levs[0], levs[-1])
-
+#norm = mpl.colors.BoundaryNorm(levs, cmap.N)
 ax2 = fig.add_axes([cbx,cby,cbw,cbh], axisbg='#F5F5F5')
 ax2.set_frame_on(False)
 ax2.set_xticks([])
